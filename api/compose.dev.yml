@@ -1,0 +1,15 @@
+name: vibefusion
+services:
+  vibefusion-api:
+    container_name: vibefusion-api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/api
+    environment:
+      - NODE_ENV=development
+    networks:
+      - default
