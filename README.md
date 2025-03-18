@@ -8,44 +8,38 @@ VibeFusion provides personalized movie recommendations by analyzing your current
 
 ## Tech Stack
 
-- **Frontend**: Next.js
+- **Frontend**: Next.js, TailwindCSS, Shadcn UI
 - **Backend API**: Hono
-- **AI Integration**: Machine learning model for mood-to-movie matching
+- **AI Integration**: Gemini 2.0 Flash
 
 ## Features
 
 - Mood-based movie recommendations
 - User profiles to track viewing preferences
 - Personalized recommendation history
-- Expandable vibe categories
 - Cross-platform responsive design
 
 ## Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
 
 ### Installation
 
 1. Clone the repository:
 
-   ```
+   ```bash
    git clone https://github.com/yourusername/vibefusion.git
    cd vibefusion
    ```
 
 2. Install dependencies:
 
-   ```
+   ```bash
    # Install API dependencies
    cd api
-   npm install
+   bun install
 
-   # Install frontend dependencies
+   # Install app dependencies
    cd ../app
-   npm install
+   bun install
    ```
 
 3. Set up environment variables:
@@ -53,17 +47,14 @@ VibeFusion provides personalized movie recommendations by analyzing your current
 
 4. Run the development servers:
 
-   ```
-   # Start API (from api directory)
-   npm run dev
-
-   # Start frontend (from app directory)
-   npm run dev
+   ```bash
+   # From the root dir
+   docker compose -f compose.dev.yml up
    ```
 
 ## Project Structure
 
-```
+```yml
 vibefusion/
 ├── api/            # Hono backend API
 └── app/            # Next.js frontend application
