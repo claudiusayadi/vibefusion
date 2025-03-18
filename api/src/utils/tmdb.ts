@@ -1,5 +1,4 @@
-import { Movie, SearchResponse } from './types';
-import { env } from './types';
+import { env, Movie, SearchResponse } from './types';
 
 /**
  * Searches TMDB for movies matching the provided title

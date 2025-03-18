@@ -1,6 +1,5 @@
-import { AiResponse } from './types';
+import { AiResponse, env } from './types';
 import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
-import { env } from './types';
 
 const schema = {
 	description: 'Mood analysis and movie recommendations',

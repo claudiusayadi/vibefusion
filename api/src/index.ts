@@ -1,6 +1,6 @@
-import { Hono } from 'hono';
-import { env } from '@/utils/types';
 import { cors } from 'hono/cors';
+import { env } from '@/utils/types';
+import { Hono } from 'hono';
 import recommender from './routes/recommend';
 
 const app = new Hono();
