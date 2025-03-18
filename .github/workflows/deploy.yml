@@ -35,6 +35,13 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
 
+      - name: Read compose.yml content
+        id: read-compose
+        run: |
+          echo "compose-file-content<<EOF" >> $GITHUB_OUTPUT
+          cat compose.yml >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
         with:
@@ -42,7 +49,14 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
           script: |
-            cd /home/dovely/apps/vibefusion
+            cd /home/dovely/apps
+            REPO_NAME=$(basename ${{ github.repository }})
+            mkdir -p "$REPO_NAME"
+            cd "$REPO_NAME"
+            cat > compose.yml << 'EOF'
+            ${{ steps.read-compose.outputs.compose-file-content }}
+            EOF
+            export REPO_NAME="$REPO_NAME"
             docker compose pull
             docker compose up -d --remove-orphans
             docker image prune -f

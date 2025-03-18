@@ -2,9 +2,8 @@ name: vibefusion
 services:
   vibefusion-api:
     container_name: vibefusion-api
-    build:
-      context: ./api
-      dockerfile: ./api/Dockerfile.dev
+    image: ghcr.io/claudiusayadi/vibefusion:latest
+    restart: unless-stopped
     ports:
       - '3001:3001'
     volumes:

@@ -1,0 +1,23 @@
+name: vibefusion
+services:
+  vibefusion-api:
+    container_name: vibefusion-api
+    image: ghcr.io/claudiusayadi/vibefusion:latest
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ~/docker/appdata/vibefusion/api:/api
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vibefusion-api.rule=Host(`vibefusion.dovely.tech`)
+      - traefik.http.routers.vibefusion-api.tls=true
+      - traefik.http.routers.vibefusion-api.entrypoints=live
+      - traefik.http.routers.vibefusion-api.tls.certresolver=myresolver
+      - traefik.http.services.vibefusion-api.loadbalancer.server.port=3001
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
