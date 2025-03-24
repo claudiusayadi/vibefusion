@@ -4,8 +4,15 @@ services:
     container_name: vibefusion-api
     image: ghcr.io/claudiusayadi/vibefusion:latest
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
+      - TMDB_API_KEY=${TMDB_API_KEY}
+      - TMDB_API_URL=${TMDB_API_URL}
+      - TMDB_IMAGE_URL=${TMDB_IMAGE_URL}
+      - AI_API_KEY=${AI_API_KEY}
+      - AI_MODEL=${AI_MODEL}
     volumes:
       - ~/docker/appdata/vibefusion/api:/api
     labels:
