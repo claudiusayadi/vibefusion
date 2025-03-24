@@ -15,7 +15,7 @@ COPY . .
 # Build the app
 RUN bun run build
 
-FROM oven/bun:alpine
+FROM oven/bun:alpine AS runner
 
 WORKDIR /api
 
