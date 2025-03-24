@@ -2,7 +2,7 @@ name: vibefusion
 services:
   vibefusion-api:
     container_name: vibefusion-api
-    image: ghcr.io/claudiusayadi/vibefusion:latest
+    image: ghcr.io/claudiusayadi/vibefusion-api:latest
     restart: unless-stopped
     env_file:
       - .env
@@ -17,5 +17,20 @@ services:
       - AI_MODEL=${AI_MODEL}
     volumes:
       - ./api:/api
+    networks:
+      - default
+
+  vibefusion-app:
+    container_name: vibefusion-app
+    image: ghcr.io/claudiusayadi/vibefusion-app:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./app:/app
     networks:
       - default

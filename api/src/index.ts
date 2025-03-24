@@ -5,7 +5,14 @@ import { logger } from 'hono/logger';
 import recommender from './routes/recommend';
 
 const app = new Hono();
-app.use('*', cors({ origin: '*' }));
+app.use(
+	'*',
+	cors({
+		origin: ['*'],
+		allowMethods: ['POST', 'GET', 'OPTIONS'],
+		allowHeaders: ['Content-Type'],
+	})
+);
 app.use('*', logger());
 
 const routes = app.basePath('/api/v1').route('/recommend', recommender);
