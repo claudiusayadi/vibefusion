@@ -2,7 +2,7 @@ name: vibefusion
 services:
   vibefusion-api:
     container_name: vibefusion-api
-    image: ghcr.io/claudiusayadi/vibefusion:latest
+    image: ghcr.io/claudiusayadi/vibefusion-api:latest
     restart: unless-stopped
     env_file:
       - .env
@@ -17,11 +17,32 @@ services:
       - ~/docker/appdata/vibefusion/api:/api
     labels:
       - traefik.enable=true
-      - traefik.http.routers.vibefusion-api.rule=Host(`vibefusion.dovely.tech`)
+      - traefik.http.routers.vibefusion-api.rule=Host(`vibefusion.dovely.tech`) && PathPrefix(`/api`)
       - traefik.http.routers.vibefusion-api.tls=true
       - traefik.http.routers.vibefusion-api.entrypoints=live
       - traefik.http.routers.vibefusion-api.tls.certresolver=myresolver
       - traefik.http.services.vibefusion-api.loadbalancer.server.port=3001
+    networks:
+      - proxy
+
+  vibefusion-app:
+    container_name: vibefusion-app
+    image: ghcr.io/claudiusayadi/vibefusion-app:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    volumes:
+      - ~/docker/appdata/vibefusion/app:/app
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vibefusion-app.rule=Host(`vibefusion.dovely.tech`)
+      - traefik.http.routers.vibefusion-app.tls=true
+      - traefik.http.routers.vibefusion-app.entrypoints=live
+      - traefik.http.routers.vibefusion-app.tls.certresolver=myresolver
+      - traefik.http.services.vibefusion-app.loadbalancer.server.port=3000
     networks:
       - proxy
 
