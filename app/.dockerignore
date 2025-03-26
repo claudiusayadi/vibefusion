@@ -5,6 +5,7 @@ compose*
 .dockerignore
 .git
 .gitignore
+.next
 README.md
 LICENSE
 .vscode

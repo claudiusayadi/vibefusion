@@ -1,9 +1,11 @@
 node_modules
 Dockerfile*
 docker-compose*
+compose*
 .dockerignore
 .git
 .gitignore
+.next
 README.md
 LICENSE
 .vscode
@@ -13,3 +15,5 @@ helm-charts
 .editorconfig
 .idea
 coverage*
+*.log
+*.tsbuildinfo

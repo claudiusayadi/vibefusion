@@ -1,4 +1,4 @@
-FROM oven/bun:alpine AS base
+FROM oven/bun:alpine AS builder
 
 WORKDIR /api
 
@@ -8,13 +8,13 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM base AS runner
+FROM builder AS runner
 
 WORKDIR /api
 
-COPY --from=base /api/package.json /api/bun.lock ./
-COPY --from=base /api/node_modules ./node_modules
-COPY --from=base /api/dist ./dist
+COPY --from=builder /api/package.json /api/bun.lock ./
+COPY --from=builder /api/node_modules ./node_modules
+COPY --from=builder /api/dist ./dist
 
 ENV NODE_ENV=production
 EXPOSE 3001
