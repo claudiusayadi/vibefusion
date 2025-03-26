@@ -20,6 +20,6 @@ const routes = app.basePath('/api/v1').route('/recommend', recommender);
 export type AppType = typeof routes;
 
 export default {
-	port: env.PORT,
+	port: env.API_PORT,
 	fetch: app.fetch,
 };

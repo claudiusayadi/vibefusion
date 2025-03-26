@@ -9,7 +9,7 @@ VibeFusion provides personalized movie recommendations by analyzing your current
 ## Tech Stack
 
 - **Frontend**: Next.js, TailwindCSS, Shadcn UI
-- **Backend API**: Hono
+- **Backend**: Hono, Drizzle-ORM, Zod, PostgreSQL
 - **AI Integration**: Gemini 2.0 Flash
 
 ## Features
@@ -26,7 +26,7 @@ VibeFusion provides personalized movie recommendations by analyzing your current
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/vibefusion.git
+   git clone https://github.com/claudiusayadi/vibefusion.git
    cd vibefusion
    ```
 
@@ -56,8 +56,14 @@ VibeFusion provides personalized movie recommendations by analyzing your current
 
 ```yml
 vibefusion/
-├── api/            # Hono backend API
-└── app/            # Next.js frontend application
+├── .github/workflows/       # CI/CD workflow
+├── api/                                  # Hono backend API
+├── app/                                # Next.js frontend application
+├── .env.example                # Environment variables
+├── .gitignore                      # Git ignore
+├── compose.dev.yml        # Docker compose for development
+├── compose.yml               # Docker compose for deployment
+└── README.md                # README file
 ```
 
 ## License

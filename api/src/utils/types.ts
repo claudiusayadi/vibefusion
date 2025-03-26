@@ -6,7 +6,7 @@ export const envSchema = z.object({
 	TMDB_IMAGE_URL: z.string().min(1, 'TMDB image URL is required'),
 	AI_MODEL: z.string().min(1, 'AI model is required'),
 	AI_API_KEY: z.string().min(1, 'AI API key is required'),
-	PORT: z.string().default('3001').transform(Number),
+	API_PORT: z.string().default('3001').transform(Number),
 });
 
 export const movieSchema = z.object({
@@ -56,5 +56,5 @@ export const env = envSchema.parse({
 	TMDB_IMAGE_URL: Bun.env.TMDB_IMAGE_URL,
 	AI_API_KEY: Bun.env.AI_API_KEY,
 	AI_MODEL: Bun.env.AI_MODEL,
-	PORT: Bun.env.PORT,
+	API_PORT: Bun.env.API_PORT,
 });
