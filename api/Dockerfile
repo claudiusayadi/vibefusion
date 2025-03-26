@@ -19,4 +19,4 @@ COPY --from=base /api/dist ./dist
 ENV NODE_ENV=production
 EXPOSE 3001
 
-CMD ["bun", "run", "start"]
+CMD ["bun", "dist/index.js"]
