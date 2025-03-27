@@ -1,17 +1,17 @@
 FROM oven/bun:alpine AS base
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY package*.json bun.lock ./
 RUN bun install --frozen-lockfile
 
 FROM base AS build
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY . .
 RUN bun run build
 
 FROM base AS release
-WORKDIR /usr/src/app
-COPY --from=build /usr/src/app/public ./public
-COPY --from=build /usr/src/app/.next ./
+WORKDIR /app
+COPY --from=build /app/public ./public
+COPY --from=build /app/.next/standalone ./.next/standalone
 
 EXPOSE 3000
 ENV HOSTNAME="0.0.0.0"
