@@ -8,7 +8,7 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM builder AS runner
+FROM oven/bun:alpine AS runner
 
 WORKDIR /api
 
