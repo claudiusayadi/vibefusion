@@ -13,6 +13,7 @@ services:
       - TMDB_IMAGE_URL=${TMDB_IMAGE_URL}
       - AI_API_KEY=${AI_API_KEY}
       - AI_MODEL=${AI_MODEL}
+      - API_PORT=${API_PORT}
     volumes:
       - ~/docker/appdata/vibefusion/api:/api
     labels:
@@ -33,9 +34,10 @@ services:
       - .env
     environment:
       - NODE_ENV=production
+      - PORT=${APP_PORT}
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     volumes:
-      - ~/docker/appdata/vibefusion/app:/app
+      - ~/docker/appdata/vibefusion/app:/usr/src/app
     labels:
       - traefik.enable=true
       - traefik.http.routers.vibefusion-app.rule=Host(`vibefusion.dovely.tech`)
