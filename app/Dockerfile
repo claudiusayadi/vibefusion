@@ -14,5 +14,6 @@ COPY --from=build /usr/src/app/public ./public
 COPY --from=build /usr/src/app/.next ./
 
 EXPOSE 3000
+ENV HOSTNAME="0.0.0.0"
 
 CMD ["bun", ".next/standalone/server.js"]
