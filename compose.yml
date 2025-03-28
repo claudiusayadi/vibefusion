@@ -8,12 +8,12 @@ services:
       - .env
     environment:
       - NODE_ENV=production
+      - API_PORT=${API_PORT}
       - TMDB_API_KEY=${TMDB_API_KEY}
       - TMDB_API_URL=${TMDB_API_URL}
       - TMDB_IMAGE_URL=${TMDB_IMAGE_URL}
       - AI_API_KEY=${AI_API_KEY}
       - AI_MODEL=${AI_MODEL}
-      - API_PORT=${API_PORT}
     # volumes:
     #   - ~/docker/appdata/vibefusion/api:/api
     labels:
@@ -35,7 +35,6 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=${APP_PORT}
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     # volumes:
     #   - ~/docker/appdata/vibefusion/app:/usr/src/app
     labels:

@@ -6,6 +6,9 @@ RUN bun install --frozen-lockfile
 FROM base AS build
 WORKDIR /app
 COPY . .
+
+ARG NEXT_PUBLIC_API_URL=https://vibefusion.dovely.tech/api/v1
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 RUN bun run build
 
 FROM base AS release
