@@ -21,8 +21,6 @@ COPY --from=build /api/dist ./dist
 COPY --from=build /api/package.json ./
 COPY --from=build /api/bun.lock ./
 
-RUN bun install --production
-
 EXPOSE 3001
 
 CMD ["bun", "run", "start"]

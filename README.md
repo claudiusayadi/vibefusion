@@ -43,7 +43,7 @@ VibeFusion provides personalized movie recommendations by analyzing your current
    ```
 
 3. Set up environment variables:
-   Create `.env` files in both `api` and `app` directories based on the provided `.env.example` files.
+   Create `.env` file in the root dir based on the provided `.env.example` files.
 
 4. Run the development servers:
 
