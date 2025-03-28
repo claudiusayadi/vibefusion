@@ -1,4 +1,9 @@
-const fetcher = async (query: string, endpoint: string) => {
+import { ApiResponse } from '@/utils/types';
+
+const fetcher = async (
+	query: string,
+	endpoint: string
+): Promise<ApiResponse> => {
 	const url = `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`;
 
 	if (!url) {
