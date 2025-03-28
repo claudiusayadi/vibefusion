@@ -13,7 +13,7 @@ const fetcher = async (query: string, endpoint: string) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ query }),
+			body: JSON.stringify({ mood: query }),
 		});
 
 		if (!response.ok) {
