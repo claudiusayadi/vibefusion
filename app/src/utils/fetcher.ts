@@ -1,10 +1,12 @@
 import { ApiResponse } from '@/utils/types';
 
 const fetcher = async (
-	query: string,
-	endpoint: string
+	endpoint: string,
+	query: string
 ): Promise<ApiResponse> => {
-	const url = `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`;
+	const url = `https://vibefusion.dovely.tech/api/v1/${endpoint}?mood=${encodeURIComponent(
+		query
+	)}`;
 
 	if (!url) {
 		throw new Error(
@@ -18,7 +20,6 @@ const fetcher = async (
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ mood: query }),
 		});
 
 		if (!response.ok) {

@@ -2,10 +2,10 @@ name: vibefusion
 services:
   vibefusion-api:
     container_name: vibefusion-api
-    # build:
-    #   context: ./api
-    #   dockerfile: ./Dockerfile
-    image: ghcr.io/claudiusayadi/vibefusion-api:latest
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    # image: ghcr.io/claudiusayadi/vibefusion-api:latest
     restart: unless-stopped
     env_file:
       - .env
@@ -13,12 +13,12 @@ services:
       - 3001:${API_PORT}
     environment:
       - NODE_ENV=development
+      - API_PORT=${API_PORT}
       - TMDB_API_KEY=${TMDB_API_KEY}
       - TMDB_API_URL=${TMDB_API_URL}
       - TMDB_IMAGE_URL=${TMDB_IMAGE_URL}
       - AI_API_KEY=${AI_API_KEY}
       - AI_MODEL=${AI_MODEL}
-      - API_PORT=${API_PORT}
     # volumes:
     #   - ./api:/usr/src/api
     networks:
@@ -26,10 +26,10 @@ services:
 
   vibefusion-app:
     container_name: vibefusion-app
-    # build:
-    #   context: ./app
-    #   dockerfile: ./Dockerfile
-    image: ghcr.io/claudiusayadi/vibefusion-app:latest
+    build:
+      context: ./app
+      dockerfile: ./Dockerfile
+    # image: ghcr.io/claudiusayadi/vibefusion-app:latest
     restart: unless-stopped
     env_file:
       - .env
@@ -38,6 +38,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=${APP_PORT}
+      # - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     # volumes:
     #   - ./app:/usr/src/app
     networks:

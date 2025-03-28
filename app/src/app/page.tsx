@@ -3,7 +3,7 @@ import { Movie } from '@/utils/types';
 import Image from 'next/image';
 
 export default async function Home() {
-	const data = await fetcher('tired and worn out', 'recommend');
+	const data = await fetcher('recommend', 'tired and worn out');
 	console.log(data);
 	return (
 		<ul>
