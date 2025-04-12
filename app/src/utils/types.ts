@@ -3,7 +3,9 @@ import { z } from 'zod';
 export const movieSchema = z.object({
 	id: z.number(),
 	title: z.string(),
-	poster_path: z.string().nullable(),
+	full_poster_path: z.string().nullable().optional(),
+	full_backdrop_path: z.string().nullable().optional(),
+	full_video_path: z.string().nullable().optional(),
 	release_date: z.string(),
 	overview: z.string(),
 	vote_average: z.number(),

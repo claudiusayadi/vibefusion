@@ -5,8 +5,7 @@ export async function fetchRecommendations(
 	endpoint: string,
 	query: string
 ): Promise<ApiResponse> {
-	const baseUrl =
-		process.env.NEXT_PUBLIC_API_URL || 'https://vibefusion.dovely.tech/api/v1';
+	const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 	const url = `${baseUrl}/${endpoint}?mood=${encodeURIComponent(query)}`;
 
 	try {

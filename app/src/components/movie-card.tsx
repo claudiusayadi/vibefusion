@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { ApiResponse } from '@/utils/types';
 import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 
 export default function MovieCards({ response }: { response: ApiResponse }) {
 	return (
@@ -15,10 +17,10 @@ export default function MovieCards({ response }: { response: ApiResponse }) {
 						</CardTitle>
 					</CardHeader>
 					<CardContent className='p-4 pt-0'>
-						{movie.poster_path ? (
+						{movie.full_poster_path ? (
 							<div className='relative w-full h-72 mb-4'>
 								<Image
-									src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+									src={movie.full_poster_path}
 									alt={movie.title}
 									fill
 									className='object-cover rounded-md'
@@ -40,6 +42,22 @@ export default function MovieCards({ response }: { response: ApiResponse }) {
 							<p>
 								<strong>Rating:</strong> {movie.vote_average}/10
 							</p>
+							{movie.full_video_path && (
+								<div className='mt-3'>
+									<a
+										href={movie.full_video_path}
+										target='_blank'
+										rel='noopener noreferrer'>
+										<Button
+											variant='outline'
+											size='sm'
+											className='w-full flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white border-none'>
+											<ExternalLink size={16} />
+											Watch Trailer
+										</Button>
+									</a>
+								</div>
+							)}
 						</div>
 					</CardContent>
 				</Card>
