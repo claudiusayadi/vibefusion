@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { getRecommendations } from '@/utils/ai';
-import { searchTMDB } from '@/utils/tmdb';
-import { ApiResponse, querySchema } from '@/utils/types';
+import { searchTMDB, getMovieTrailer } from '@/utils/tmdb';
+import { ApiResponse, env, querySchema } from '@/utils/types';
 
 const router = new Hono().post(
 	'/',
@@ -18,7 +18,30 @@ const router = new Hono().post(
 			const moviesArrays = await Promise.all(
 				recommendations.recommended_titles.map(searchTMDB)
 			);
-			const movies = moviesArrays.flat();
+			// Process movies and add full URLs
+			const moviesWithTrailers = await Promise.all(
+				moviesArrays.flat().map(async movie => {
+					// Get trailer for the movie
+					const trailerKey = await getMovieTrailer(movie.id);
+
+					// Create a new object with only the properties we want, removing original path properties
+					const { poster_path, backdrop_path, ...restMovieProps } = movie;
+					return {
+						...restMovieProps,
+						full_poster_path: poster_path
+							? `${env.TMDB_IMAGE_URL}/w500${poster_path}`
+							: null,
+						full_backdrop_path: backdrop_path
+							? `${env.TMDB_IMAGE_URL}/original${backdrop_path}`
+							: null,
+						full_video_path: trailerKey
+							? `${env.TMDB_VIDEO_URL}?v=${trailerKey}`
+							: null,
+					};
+				})
+			);
+
+			const movies = moviesWithTrailers;
 
 			const response = {
 				detected_moods: recommendations.detected_moods,
