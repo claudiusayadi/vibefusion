@@ -1,20 +1,23 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter, Outfit } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
+const inter = Inter({
 	subsets: ['latin'],
+	variable: '--font-inter',
+	display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
+const outfit = Outfit({
 	subsets: ['latin'],
+	variable: '--font-outfit',
+	display: 'swap',
 });
 
 export const metadata: Metadata = {
-	title: 'Vibefusion',
-	description: 'Perfect movies for your vibe!',
+	title: 'VibeFusion | Movie Recommendations Based on Your Mood',
+	description:
+		'Discover the perfect movies for your current mood or vibe with VibeFusion, an AI-powered movie recommendation platform.',
 };
 
 export default function RootLayout({
@@ -23,9 +26,9 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' className='dark'>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-gray-950 text-white overflow-x-hidden`}>
 				{children}
 			</body>
 		</html>
