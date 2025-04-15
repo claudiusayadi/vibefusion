@@ -2,10 +2,10 @@ name: vibefusion
 services:
   vibefusion-api:
     container_name: vibefusion-api
-    build:
-      context: ./api
-      dockerfile: ./Dockerfile
-    # image: ghcr.io/claudiusayadi/vibefusion-api:latest
+    # build:
+    #   context: ./api
+    #   dockerfile: ./Dockerfile
+    image: ghcr.io/claudiusayadi/vibefusion-api:latest
     restart: unless-stopped
     env_file:
       - .env
@@ -28,10 +28,10 @@ services:
 
   vibefusion-app:
     container_name: vibefusion-app
-    build:
-      context: ./app
-      dockerfile: ./Dockerfile
-    # image: ghcr.io/claudiusayadi/vibefusion-app:latest
+    # build:
+    #   context: ./app
+    #   dockerfile: ./Dockerfile
+    image: ghcr.io/claudiusayadi/vibefusion-app:latest
     restart: unless-stopped
     env_file:
       - .env
