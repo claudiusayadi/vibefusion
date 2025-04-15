@@ -18,12 +18,10 @@ RUN ls -la .next/standalone || echo "Standalone directory not found!"
 FROM base AS release
 WORKDIR /app
 
-# Copy standalone directory (contains server.js and node_modules)
-COPY --from=build /app/.next/standalone ./
 
-# Copy static files
 COPY --from=build /app/public ./public
 COPY --from=build /app/.next/static ./.next/static
+COPY --from=build /app/.next/standalone ./
 
 EXPOSE 3000
 ENV HOSTNAME="0.0.0.0"
@@ -35,4 +33,4 @@ HEALTHCHECK --interval=30m --timeout=5s --start-period=5s --retries=3 \
 
 
 # Run the standalone server
-CMD ["bun", "run", "server.js"]
+CMD ["bun", "run", "start"]
