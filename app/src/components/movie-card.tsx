@@ -20,7 +20,7 @@ export default function MovieCards({ response }: { response: ApiResponse }) {
 						{movie.poster_url ? (
 							<div className='relative w-full h-72 mb-4'>
 								<Image
-									src={encodeURI(movie.poster_url)}
+									src={decodeURI(movie.poster_url)}
 									alt={movie.title}
 									fill
 									className='object-cover rounded-md'
