@@ -4,6 +4,10 @@ import { ApiResponse } from '@/utils/types';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 
+const loaderProp = ({ src }) => {
+	return src;
+};
+
 export default function MovieCards({ response }: { response: ApiResponse }) {
 	return (
 		<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full'>
@@ -20,11 +24,12 @@ export default function MovieCards({ response }: { response: ApiResponse }) {
 						{movie.poster_url ? (
 							<div className='relative w-full h-72 mb-4'>
 								<Image
-									src={decodeURI(movie.poster_url)}
+									src={movie.poster_url}
 									alt={movie.title}
 									fill
 									className='object-cover rounded-md'
 									sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+									loader={loaderProp}
 								/>
 							</div>
 						) : (

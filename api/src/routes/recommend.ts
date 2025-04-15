@@ -29,17 +29,13 @@ const router = new Hono().post(
 					return {
 						...restMovieProps,
 						poster_url: poster_path
-							? `${encodeURIComponent(env.TMDB_POSTER_URL)}${encodeURIComponent(
-									poster_path
-							  )}`
+							? `${env.TMDB_POSTER_URL}${poster_path}`
 							: null,
 						backdrop_url: backdrop_path
-							? `${encodeURIComponent(
-									env.TMDB_BACKDROP_URL
-							  )}${encodeURIComponent(backdrop_path)}`
+							? `${env.TMDB_BACKDROP_URL}${backdrop_path}`
 							: null,
 						video_url: trailerKey
-							? `${encodeURIComponent(env.TMDB_VIDEO_URL)}?v=${trailerKey}`
+							? `${env.TMDB_VIDEO_URL}?v=${trailerKey}`
 							: null,
 					};
 				})
