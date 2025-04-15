@@ -43,11 +43,11 @@ services:
     #   - ~/docker/appdata/vibefusion/app:/usr/src/app
     labels:
       - traefik.enable=true
-      - traefik.http.routers.vibefusion.rule=Host(`vibefusion.dovely.tech`)
-      - traefik.http.routers.vibefusion.tls=true
-      - traefik.http.routers.vibefusion.entrypoints=live
-      - traefik.http.routers.vibefusion.tls.certresolver=myresolver
-      - traefik.http.services.vibefusion.loadbalancer.server.port=3000
+      - traefik.http.routers.vibefusion-app.rule=Host(`vibefusion.dovely.tech`)
+      - traefik.http.routers.vibefusion-app.tls=true
+      - traefik.http.routers.vibefusion-app.entrypoints=live
+      - traefik.http.routers.vibefusion-app.tls.certresolver=myresolver
+      - traefik.http.services.vibefusion-app.loadbalancer.server.port=3000
     networks:
       - proxy
 
