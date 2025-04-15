@@ -1,67 +1,78 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ApiResponse } from '@/utils/types';
+'use client';
+import { useRouter } from 'next/navigation';
+import { ApiResponse, Movie } from '@/utils/types';
 import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
+import { Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function MovieCards({ response }: { response: ApiResponse }) {
+	const router = useRouter();
+
+	const handleMovieClick = (movie: Movie) => {
+		router.push(`/movie/${movie.id}`);
+	};
+
+	const container = {
+		hidden: { opacity: 0 },
+		show: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.05,
+			},
+		},
+	};
+
+	const item = {
+		hidden: { y: 20, opacity: 0 },
+		show: { y: 0, opacity: 1 },
+	};
+
 	return (
-		<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full'>
+		<motion.div
+			variants={container}
+			initial='hidden'
+			animate='show'
+			className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-8 w-full'>
 			{response.movies.map(movie => (
-				<Card
+				<motion.div
 					key={movie.id}
-					className='bg-gray-900 border-gray-800 hover:shadow-lg hover:shadow-indigo-500/20 transition-shadow duration-300'>
-					<CardHeader className='p-4'>
-						<CardTitle className='text-lg font-medium text-white truncate'>
-							{movie.title}
-						</CardTitle>
-					</CardHeader>
-					<CardContent className='p-4 pt-0'>
-						{movie.poster_url ? (
-							<div className='relative w-full h-72 mb-4'>
+					variants={item}
+					layoutId={`movie-card-${movie.id}`}
+					className='cursor-pointer'
+					onClick={() => handleMovieClick(movie)}>
+					<article className='flex flex-col h-full'>
+						<div className='relative aspect-[2/3] rounded-lg overflow-hidden bg-gray-800 mb-2 hover:ring-2 hover:ring-purple-500 transition-all duration-300'>
+							{movie.poster_url ? (
 								<Image
 									src={movie.poster_url}
 									alt={movie.title}
 									fill
-									className='object-cover rounded-md'
-									sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+									className='object-cover'
+									sizes='(max-width: 768px) 50vw, 20vw'
 								/>
-							</div>
-						) : (
-							<div className='w-full h-72 bg-gray-700 rounded-md mb-4 flex items-center justify-center'>
-								<span className='text-gray-400'>No Poster Available</span>
-							</div>
-						)}
-						<p className='text-gray-300 text-sm line-clamp-3'>
-							{movie.overview}
-						</p>
-						<div className='mt-3 text-gray-400 text-sm'>
-							<p>
-								<strong>Release:</strong> {movie.release_date}
-							</p>
-							<p>
-								<strong>Rating:</strong> {movie.vote_average}/10
-							</p>
-							{movie.video_url && (
-								<div className='mt-3'>
-									<a
-										href={movie.video_url}
-										target='_blank'
-										rel='noopener noreferrer'>
-										<Button
-											variant='outline'
-											size='sm'
-											className='w-full flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white border-none'>
-											<ExternalLink size={16} />
-											Watch Trailer
-										</Button>
-									</a>
+							) : (
+								<div className='w-full h-full flex items-center justify-center'>
+									<span className='text-gray-400 text-sm'>No Poster</span>
 								</div>
 							)}
+							<div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2'>
+								<div className='flex items-center'>
+									<Star className='text-yellow-400 w-4 h-4 mr-1' />
+									<span className='text-white text-xs'>
+										{movie.vote_average.toFixed(1)}
+									</span>
+								</div>
+							</div>
 						</div>
-					</CardContent>
-				</Card>
+						<h3 className='text-white text-sm font-medium line-clamp-1'>
+							{movie.title}
+						</h3>
+						<p className='text-gray-400 text-xs'>
+							{new Date(movie.release_date).getFullYear()}
+						</p>
+					</article>
+				</motion.div>
 			))}
-		</div>
+		</motion.div>
 	);
 }
