@@ -16,6 +16,7 @@ FROM base AS release
 WORKDIR /app
 COPY --from=build /app/public ./public
 COPY --from=build /app/.next ./.next
+COPY --from=build /app/next.config.js ./
 
 EXPOSE 3000
 ENV HOSTNAME="0.0.0.0"
