@@ -15,6 +15,9 @@ app.use(
 );
 app.use('*', logger());
 
+// Add health check endpoint
+app.get('/health', c => c.json({ status: 'ok' }));
+
 const routes = app.basePath('/api/v1').route('/recommend', recommender);
 
 export type AppType = typeof routes;

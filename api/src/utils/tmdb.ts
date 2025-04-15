@@ -40,12 +40,12 @@ export async function getMovieTrailer(movieId: number): Promise<string | null> {
 		}
 
 		// If no official trailer, try to find any YouTube trailer
-		const anyTrailer = data.results.find(
+		const otherTrailers = data.results.find(
 			video => video.site === 'YouTube' && video.type === 'Trailer'
 		);
 
-		if (anyTrailer) {
-			return anyTrailer.key;
+		if (otherTrailers) {
+			return otherTrailers.key;
 		}
 
 		// If no trailer, try to find any YouTube video
@@ -58,7 +58,12 @@ export async function getMovieTrailer(movieId: number): Promise<string | null> {
 	}
 }
 
-export async function searchTMDB(title: string): Promise<Movie[]> {
+/**
+ * Searches TMDB  for a given movie title
+ * @param title - The movie title to be searched
+ * @returns Promise resolving to the first item on the search result
+ */
+export async function searchMovie(title: string): Promise<Movie[]> {
 	try {
 		const url = `${env.TMDB_MOVIE_SEARCH_URL}?query=${encodeURIComponent(
 			title

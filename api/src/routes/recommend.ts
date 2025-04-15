@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { getRecommendations } from '@/utils/ai';
-import { searchTMDB, getMovieTrailer } from '@/utils/tmdb';
+import { searchMovie, getMovieTrailer } from '@/utils/tmdb';
 import { ApiResponse, env, querySchema } from '@/utils/types';
 
 const router = new Hono().post(
@@ -16,7 +16,7 @@ const router = new Hono().post(
 				return c.json({ error: 'No recommendations found' }, 404);
 
 			const moviesArrays = await Promise.all(
-				recommendations.recommended_titles.map(searchTMDB)
+				recommendations.recommended_titles.map(searchMovie)
 			);
 			// Process movies and add full URLs
 			const moviesWithTrailers = await Promise.all(
@@ -24,17 +24,17 @@ const router = new Hono().post(
 					// Get trailer for the movie
 					const trailerKey = await getMovieTrailer(movie.id);
 
-					// Create a new object with only the properties we want, removing original path properties
+					// Create a new object with only the properties desired
 					const { poster_path, backdrop_path, ...restMovieProps } = movie;
 					return {
 						...restMovieProps,
-						full_poster_path: poster_path
-							? `${env.TMDB_IMAGE_URL}/w500${poster_path}`
+						poster_url: poster_path
+							? `${env.TMDB_POSTER_URL}${poster_path}`
 							: null,
-						full_backdrop_path: backdrop_path
-							? `${env.TMDB_IMAGE_URL}/original${backdrop_path}`
+						backdrop_url: backdrop_path
+							? `${env.TMDB_BACKDROP_URL}${backdrop_path}`
 							: null,
-						full_video_path: trailerKey
+						video_url: trailerKey
 							? `${env.TMDB_VIDEO_URL}?v=${trailerKey}`
 							: null,
 					};

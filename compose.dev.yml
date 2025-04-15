@@ -12,15 +12,17 @@ services:
     ports:
       - 3001:${API_PORT}
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - API_PORT=${API_PORT}
       - TMDB_API_KEY=${TMDB_API_KEY}
-      - TMDB_API_URL=${TMDB_API_URL}
-      - TMDB_IMAGE_URL=${TMDB_IMAGE_URL}
+      - TMDB_MOVIE_SEARCH_URL=${TMDB_MOVIE_SEARCH_URL}
+      - TMDB_MOVIE_VIDEOS_URL=${TMDB_MOVIE_VIDEOS_URL}
+      - TMDB_POSTER_URL=${TMDB_POSTER_URL}
+      - TMDB_VIDEO_URL=${TMDB_VIDEO_URL}
       - AI_API_KEY=${AI_API_KEY}
       - AI_MODEL=${AI_MODEL}
     # volumes:
-    #   - ./api:/usr/src/api
+    #   - ./api:/api
     networks:
       - default
 
@@ -36,10 +38,10 @@ services:
     ports:
       - 3000:${APP_PORT}
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=${APP_PORT}
-      # - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     # volumes:
-    #   - ./app:/usr/src/app
+    #   - ./app:/app
     networks:
       - default

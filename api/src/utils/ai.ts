@@ -42,10 +42,10 @@ const schema = {
 
 const systemPrompt = `
 You are a movie recommendation expert. Analyze the user's mood or vibe query and respond with a structured JSON object containing:
-1. "detected_moods": An array of emotional states detected in the query
-2. "emotional_context": A brief analysis of the emotional context
-3. "viewing_experience": A brief description of the desired viewing experience
-3. "recommended_titles": An array of 5-8 movie titles that match the mood
+1. "detected_moods": An array of up to 4 emotional states detected in the query
+2. "emotional_context": A overview analysis of the emotional context
+3. "viewing_experience": A detailed description of the desired viewing experience
+3. "recommended_titles": An array of 6 - 8 movie titles that match the mood/vibe
 
 Only return valid JSON without any additional text or explanation. Do not hallucinate or make up information. All recommended titles should be real movies verifiable from real movie databases like TMDB, Rotten Tomatoes, etc. The user may mention specific genres or themes, but you should focus on the overall mood.
 
@@ -81,9 +81,9 @@ Example output: {
 `;
 
 /**
- * AI API call that analyzes a user's mood/vibe query and returns structured recommendations
+ * AI API call that analyzes a user's mood/vibe query and returns structured recommendations object
  * @param query - The user's mood or vibe query
- * @returns A structured response with mood analysis and recommendations
+ * @returns A structured response with mood analysis, viewing experience, and movie recommendations
  */
 export async function getRecommendations(query: string): Promise<AiResponse> {
 	const genAI = new GoogleGenerativeAI(env.AI_API_KEY);

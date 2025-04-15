@@ -17,10 +17,10 @@ export default function MovieCards({ response }: { response: ApiResponse }) {
 						</CardTitle>
 					</CardHeader>
 					<CardContent className='p-4 pt-0'>
-						{movie.full_poster_path ? (
+						{movie.poster_url ? (
 							<div className='relative w-full h-72 mb-4'>
 								<Image
-									src={movie.full_poster_path}
+									src={movie.poster_url}
 									alt={movie.title}
 									fill
 									className='object-cover rounded-md'
@@ -42,10 +42,10 @@ export default function MovieCards({ response }: { response: ApiResponse }) {
 							<p>
 								<strong>Rating:</strong> {movie.vote_average}/10
 							</p>
-							{movie.full_video_path && (
+							{movie.video_url && (
 								<div className='mt-3'>
 									<a
-										href={movie.full_video_path}
+										href={movie.video_url}
 										target='_blank'
 										rel='noopener noreferrer'>
 										<Button
