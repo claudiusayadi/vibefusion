@@ -28,4 +28,4 @@ EXPOSE 3001
 HEALTHCHECK --interval=30m --timeout=5s --start-period=5s --retries=3 \
 	CMD wget --no-verbose --tries=1 --spider http://localhost:3001/health || exit 1
 
-CMD ["bun", "run", "start"]
+CMD ["bun", "run", "dist/index.js"]

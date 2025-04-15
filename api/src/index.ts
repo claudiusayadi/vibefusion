@@ -3,6 +3,7 @@ import { env } from '@/utils/types';
 import { Hono } from 'hono';
 import { logger } from 'hono/logger';
 import recommender from './routes/recommend';
+import healthChecker from './routes/health';
 
 const app = new Hono();
 app.use(
@@ -15,10 +16,10 @@ app.use(
 );
 app.use('*', logger());
 
-// Add health check endpoint
-app.get('/health', c => c.json({ status: 'ok' }));
-
-const routes = app.basePath('/api/v1').route('/recommend', recommender);
+const routes = app
+	.basePath('/api/v1')
+	.route('/health', healthChecker)
+	.route('/recommend', recommender);
 
 export type AppType = typeof routes;
 
