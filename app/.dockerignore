@@ -1,20 +1,42 @@
+# Dependencies
 node_modules
+**/node_modules
+
+# Build outputs
 dist
+.next
+out
+
+# Docker files
 Dockerfile*
 docker-compose*
 compose*
 .dockerignore
+
+# Version control
 .git
 .gitignore
-.next
+
+# Documentation
 README.md
 LICENSE
+
+# Editor configs
 .vscode
-Makefile
-helm-charts
-.env
 .editorconfig
 .idea
+
+# Build tools
+Makefile
+helm-charts
+
+# Environment and secrets
+.env*
+!.env.example
+
+# Logs and tests
 coverage*
 *.log
+
+# TypeScript
 *.tsbuildinfo
