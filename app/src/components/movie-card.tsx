@@ -106,7 +106,9 @@ export default function MovieGrid({ data }: MovieGridProps) {
 						{data.movies.map((movie, index) => (
 							<motion.li
 								key={movie.id}
-								ref={el => (movieRefs.current[index] = el)}
+								ref={(el: HTMLLIElement | null) => {
+									movieRefs.current[index] = el;
+								}}
 								variants={item}
 								layoutId={`movie-${movie.id}`}
 								onClick={() => handleMovieClick(movie)}
