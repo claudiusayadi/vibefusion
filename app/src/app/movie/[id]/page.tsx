@@ -7,12 +7,15 @@ import { Movie } from '@/utils/types';
 import { Button } from '@/components/ui/button';
 import { Star, Calendar, ArrowLeft, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAppState } from '@/context/state-context';
 
 export default function MovieDetailPage() {
 	const params = useParams();
 	const router = useRouter();
 	const [movie, setMovie] = useState<Movie | null>(null);
 	const [loading, setLoading] = useState(true);
+	// Access the app state to ensure it's preserved when navigating back
+	useAppState();
 
 	useEffect(() => {
 		const fetchMovie = async () => {
@@ -92,7 +95,7 @@ export default function MovieDetailPage() {
 
 				{/* Back Button */}
 				<Button
-					onClick={() => router.back()}
+					onClick={() => router.push('/')}
 					variant='ghost'
 					className='absolute top-4 left-4 text-white hover:bg-black/20 z-10'>
 					<ArrowLeft className='mr-2 h-4 w-4' /> Back

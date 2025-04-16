@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Outfit } from 'next/font/google';
 import './globals.css';
+import { StateProvider } from '@/context/state-context';
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -29,7 +30,7 @@ export default function RootLayout({
 		<html lang='en' className='dark'>
 			<body
 				className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-gray-950 text-white overflow-x-hidden`}>
-				{children}
+				<StateProvider>{children}</StateProvider>
 			</body>
 		</html>
 	);
